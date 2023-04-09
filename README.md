@@ -5,21 +5,18 @@ Build:
 docker build -t mytts .
 ```
 
-Run with unique output file (using defaults otherwise):
+Run with unique output file (You can also pass the flags in the progam at the end of the docker command in to avoid the prompts, otherwise each option is prompted):
 ```
-docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --name=mytts mytts --output_file /output/myoutput-$((Get-Date).ticks).wav --speech "Winter is coming."
-```
-
-Full arguments:
-```
-docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --name=mytts mytts --target_file /target/speaker.wav --output_file /output/myoutput.wav --model tts_models/en/ljspeech/glow-tts --speech "Winter is coming."
+docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --name=mytts mytts
 ```
 
 Debug:
 ```
-docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --entrypoint /bin/bash --name=mytts mytts --target_file /target/speaker.wav --output_file /output/myoutput.wav --model tts_models/en/ljspeech/glow-tts --speech "Winter is coming."
+docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --entrypoint /bin/bash --name=mytts mytts --target_file /target/speaker.wav
 ```
 
+models:
+```
 [
     "tts_models/multilingual/multi-dataset/your_tts",
     "tts_models/bg/cv/vits",
@@ -84,3 +81,25 @@ docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --entr
     "tts_models/ca/custom/vits",
     "tts_models/fa/custom/glow-tts",
 ]
+```
+
+speakers:
+```
+[
+    'female-en-5',
+    'female-en-5\n',
+    'female-pt-4\n',
+    'male-en-2',
+    'male-en-2\n',
+    'male-pt-3\n'
+]
+```
+
+languages:
+```
+[
+    'en', 
+    'fr-fr',
+    'pt-br'
+]
+```
