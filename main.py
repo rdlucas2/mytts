@@ -89,11 +89,12 @@ def synthesize_speech(tts, model, target_file, output_file, speech):
         f"The text \"{speech}\" will be synthesized using target speaker file \"{target_file}\" to \"{output_file}\", using model \"{model}\""
     )
     start_tts_with_vc_to_file = time.perf_counter()
-    tts.tts_with_vc_to_file(
-        speech,
-        speaker_wav=target_file,
-        file_path=output_file,
-    )
+    tts.tts_to_file(text=speech, speaker_wav=target_file, language='en', file_path=output_file)
+    # tts.tts_with_vc_to_file(
+    #     speech,
+    #     speaker_wav=target_file,
+    #     file_path=output_file
+    # )
     end_tts_with_vc_to_file = time.perf_counter()
     elapsed_time_for_tts_with_vc_to_file = end_tts_with_vc_to_file - start_tts_with_vc_to_file
     print("Elapsed time for tts_with_vc_to_file:", elapsed_time_for_tts_with_vc_to_file, "seconds")
