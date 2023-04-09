@@ -12,12 +12,12 @@ docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --name
 
 Full arguments:
 ```
-docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --name=mytts mytts --target_file /target/speaker.wav --output_file /output/myoutput.wav --model tts_models/en/ljspeech/tacotron2-DDC --speech "Winter is coming."
+docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --name=mytts mytts --target_file /target/speaker.wav --output_file /output/myoutput.wav --model tts_models/en/ljspeech/glow-tts --speech "Winter is coming."
 ```
 
 Debug:
 ```
-docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --entrypoint /bin/bash --name=mytts mytts --target_file /target/speaker.wav --output_file /output/myoutput.wav --model tts_models/en/ljspeech/tacotron2-DDC --speech "Winter is coming."
+docker run --rm -it -v "$(pwd)\target:/target" -v "$(pwd)\output:/output" --entrypoint /bin/bash --name=mytts mytts --target_file /target/speaker.wav --output_file /output/myoutput.wav --model tts_models/en/ljspeech/glow-tts --speech "Winter is coming."
 ```
 
 [

@@ -31,7 +31,7 @@ from TTS.api import TTS
 def run(target_file, output_file, model, speech):
     tts = TTS(model)
     print(
-        f"The text {speech} will be synthesized using target speaker file {target_file} to {output_file}, using model {model}"
+        f"The text \"{speech}\" will be synthesized using target speaker file \"{target_file}\" to \"{output_file}\", using model \"{model}\""
     )
     start = time.perf_counter()
     tts.tts_with_vc_to_file(
