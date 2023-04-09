@@ -43,50 +43,60 @@ ts = time.time()
 )
 def run(target_file, speaker, language, output_file, model, speech):
     start = time.perf_counter()
+    tts = set_model(model)
+    if not target_file:
+        text_to_speech(tts, model, speaker, language, output_file, speech)
+    else:
+        synthesize_speech(tts, model, target_file, output_file, speech)
+    end = time.perf_counter()
+    elapsed_time = end - start
+    print("Total elapsed time:", elapsed_time, "seconds")
+
+def set_model(model):
     model_index = 0
     if model:
         model_index = TTS.list_models().index(model)
     model_name = TTS.list_models()[model_index]
-    tts = TTS(model_name)
-    if not target_file:
-        print(f'Speakers and Languages available for {model}:')
-        print('Speakers:', tts.speakers)
-        print('Languages:', tts.languages)
+    return TTS(model_name)
 
-        speaker_index = 0
-        if speaker:
-            speaker_index = tts.speakers.index(speaker)
-        speaker_name = tts.speakers[speaker_index]
 
-        language_index = 0
-        if language:
-            language_name = tts.languages.index(language)
-        language_name = tts.languages[language_index]
+def text_to_speech(tts, model, speaker, language, output_file, speech):
+    print(f'Speakers and Languages available for {model}:')
+    print('Speakers:', tts.speakers)
+    print('Languages:', tts.languages)
 
-        print(
-            f"The text \"{speech}\" will be synthesized to \"{output_file}\", using model \"{model}\", speaker \"{speaker}\", language \"{language}\""
-        )
-        start_tts_to_file = time.perf_counter()
-        tts.tts_to_file(text=speech, speaker=speaker_name, language=language_name, file_path=output_file)
-        end_tts_to_file = time.perf_counter()
-        elapsed_time_for_tts_to_file = end_tts_to_file - start_tts_to_file
-        print("Elapsed time for tts_to_file:", elapsed_time_for_tts_to_file, "seconds")
-    else:
-        print(
-            f"The text \"{speech}\" will be synthesized using target speaker file \"{target_file}\" to \"{output_file}\", using model \"{model}\""
-        )
-        start_tts_with_vc_to_file = time.perf_counter()
-        tts.tts_with_vc_to_file(
-            speech,
-            speaker_wav=target_file,
-            file_path=output_file,
-        )
-        end_tts_with_vc_to_file = time.perf_counter()
-        elapsed_time_for_tts_with_vc_to_file = end_tts_with_vc_to_file - start_tts_with_vc_to_file
-        print("Elapsed time for tts_with_vc_to_file:", elapsed_time_for_tts_with_vc_to_file, "seconds")
-    end = time.perf_counter()
-    elapsed_time = end - start
-    print("Total elapsed time:", elapsed_time, "seconds")
+    speaker_index = 0
+    if speaker:
+        speaker_index = tts.speakers.index(speaker)
+    speaker_name = tts.speakers[speaker_index]
+
+    language_index = 0
+    if language:
+        language_name = tts.languages.index(language)
+    language_name = tts.languages[language_index]
+
+    print(
+        f"The text \"{speech}\" will be synthesized to \"{output_file}\", using model \"{model}\", speaker \"{speaker}\", language \"{language}\""
+    )
+    start_tts_to_file = time.perf_counter()
+    tts.tts_to_file(text=speech, speaker=speaker_name, language=language_name, file_path=output_file)
+    end_tts_to_file = time.perf_counter()
+    elapsed_time_for_tts_to_file = end_tts_to_file - start_tts_to_file
+    print("Elapsed time for tts_to_file:", elapsed_time_for_tts_to_file, "seconds")
+
+def synthesize_speech(tts, model, target_file, output_file, speech):
+    print(
+        f"The text \"{speech}\" will be synthesized using target speaker file \"{target_file}\" to \"{output_file}\", using model \"{model}\""
+    )
+    start_tts_with_vc_to_file = time.perf_counter()
+    tts.tts_with_vc_to_file(
+        speech,
+        speaker_wav=target_file,
+        file_path=output_file,
+    )
+    end_tts_with_vc_to_file = time.perf_counter()
+    elapsed_time_for_tts_with_vc_to_file = end_tts_with_vc_to_file - start_tts_with_vc_to_file
+    print("Elapsed time for tts_with_vc_to_file:", elapsed_time_for_tts_with_vc_to_file, "seconds")
 
 
 if __name__ == "__main__":
